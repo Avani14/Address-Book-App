@@ -18,9 +18,9 @@ public class ContactDTO {
     @NotNull
     private String state;
     @Pattern(regexp = "[0-9]{6}",message = "Please enter valid pin code")
-    private String zipNo;
+    private int zipNo;
     @NotNull
-    private String mobileNo;
+    private long mobileNo;
     @NotNull
     private String emailId;
     @NotNull
