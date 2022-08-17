@@ -2,6 +2,7 @@ package com.bridgelabz.addressbookapp.service;
 
 import com.bridgelabz.addressbookapp.dto.ContactDTO;
 import com.bridgelabz.addressbookapp.entity.Contact;
+import com.bridgelabz.addressbookapp.exception.AddressNotFound;
 import com.bridgelabz.addressbookapp.repository.AddressBookRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,17 @@ public class AddressBookService implements AddressBookServiceInterface{
     }
 
     @Override
-    public String editContacts(int id,ContactDTO contactDTO) {
+    public Contact getContactById(int id) throws AddressNotFound {
+       Contact contact = addressBookRepository.findById(id).orElse(null);
+       if(contact == null){
+           throw new AddressNotFound("Contact with id "+id +" not found");
+       }
+       return contact;
+    }
+
+    @Override
+    public Contact editContacts(int id,ContactDTO contactDTO) {
         Contact contact = addressBookRepository.findById(id).orElse(null);
-        if(contact == null){
-            return "Contact with id :"+id+" not found";
-        }
         Contact contact1 = new Contact(contactDTO);
         contact.setFirstName(contact1.getFirstName());
         contact.setLastName(contact1.getLastName());
@@ -36,8 +43,7 @@ public class AddressBookService implements AddressBookServiceInterface{
         contact.setMobileNo(contact1.getMobileNo()) ;
         contact.setEmailId(contact1.getEmailId());
         contact.setPassword(contact1.getPassword()) ;
-        addressBookRepository.save(contact);
-        return "Contact with id:"+id+" edited successfully.";
+        return addressBookRepository.save(contact);
     }
 
     @Override
