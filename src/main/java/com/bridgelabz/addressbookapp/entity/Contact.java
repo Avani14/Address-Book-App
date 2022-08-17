@@ -23,8 +23,8 @@ public class Contact {
     private String address;
     private String city;
     private String state;
-    private String zipNo;
-    private String mobileNo;
+    private int zipNo;
+    private long mobileNo;
     private String emailId;
     private String password;
 
