@@ -5,7 +5,6 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-// Addition of DTO Model
 @Data
 public class ContactDTO {
     @Pattern(regexp = "^[A-Z]{1}[a-z]{2,}",message = "Please enter valid first name")
